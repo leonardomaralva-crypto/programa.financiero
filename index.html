@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinMat | Matemáticas Financieras</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <a class="sidebar__brand" href="#interes-simple" aria-label="Matemáticas Financieras, inicio">
+      <span class="sidebar__logo" aria-hidden="true">$</span>
+      <span class="sidebar__brand-text">
+        <strong>FinMat</strong>
+        <small>Matemáticas financieras</small>
+      </span>
+    </a>
+
+    <nav class="sidebar__nav" aria-label="Módulos">
+      <ul class="sidebar__list">
+        <li>
+          <a class="sidebar__link active" href="#interes-simple" data-module="interes-simple" aria-current="page">
+            <svg class="sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+            <span>Interés Simple</span>
+          </a>
+        </li>
+        <li>
+          <a class="sidebar__link" href="#interes-compuesto" data-module="interes-compuesto">
+            <svg class="sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>
+            <span>Interés Compuesto</span>
+          </a>
+        </li>
+        <li>
+          <a class="sidebar__link" href="#anualidades" data-module="anualidades">
+            <svg class="sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Anualidades</span>
+          </a>
+        </li>
+        <li>
+          <a class="sidebar__link" href="#amortizacion" data-module="amortizacion">
+            <svg class="sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            <span>Amortización</span>
+          </a>
+        </li>
+        <li>
+          <a class="sidebar__link" href="#depreciaciones" data-module="depreciaciones">
+            <svg class="sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="3 7 9 13 13 9 21 17"/><polyline points="15 17 21 17 21 11"/></svg>
+            <span>Depreciaciones</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ===================== CONTENIDO PRINCIPAL ===================== -->
+  <main class="main-content" id="main-content">
+    <div class="main-content__inner">
+
+      <!-- =========================================================
+           1. MÓDULO: INTERÉS SIMPLE
+           ========================================================= -->
+      <div class="module" id="interes-simple">
+        <header class="page-header">
+          <h1 class="page-header__title">Interés simple</h1>
+          <p class="page-header__subtitle">Calcula cuánto interés genera un capital cuando los intereses se calculan siempre sobre el monto inicial.</p>
+        </header>
+
+        <section class="financial-card" aria-labelledby="simple-interest-heading">
+          <div class="financial-card__header">
+            <h2 class="financial-card__title" id="simple-interest-heading">Datos de la operación</h2>
+            <p class="formula">I = C × i × t &nbsp;|&nbsp; M = C + I</p>
+          </div>
+
+          <p class="form-error" id="simple-error" role="alert" hidden></p>
+
+          <form class="financial-form" id="simple-interest-form" novalidate>
+            <div class="form-grid">
+              <div class="form-field">
+                <label class="form-field__label" for="simple-capital">Capital inicial (C)</label>
+                <div class="input-group">
+                  <span class="input-group__addon" aria-hidden="true">$</span>
+                  <input class="input-group__control" type="number" id="simple-capital" min="0" step="any" placeholder="10000" inputmode="decimal" required>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="simple-tasa">Tasa de interés anual (i)</label>
+                <div class="input-group">
+                  <input class="input-group__control" type="number" id="simple-tasa" min="0" step="any" placeholder="8" inputmode="decimal" required>
+                  <span class="input-group__addon" aria-hidden="true">%</span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="simple-tiempo">Tiempo en años (t)</label>
+                <div class="input-group">
+                  <input class="input-group__control" type="number" id="simple-tiempo" min="1" step="1" placeholder="3" inputmode="numeric" required>
+                  <span class="input-group__addon" aria-hidden="true">años</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16.01" y2="15"/><line x1="8" y1="19" x2="12" y2="19"/></svg>
+                Calcular
+              </button>
+              <button class="btn btn--ghost" type="reset">Limpiar</button>
+            </div>
+          </form>
+
+          <div class="results" aria-live="polite">
+            <article class="result-card result-card--primary">
+              <h3 class="result-card__label">Monto total (M)</h3>
+              <p class="result-card__value" id="simple-resultado-monto">$0.00</p>
+              <p class="result-card__hint">Capital + interés generado</p>
+            </article>
+
+            <article class="result-card result-card--accent">
+              <h3 class="result-card__label">Interés ganado (I)</h3>
+              <p class="result-card__value" id="simple-resultado-interes">$0.00</p>
+              <p class="result-card__hint">Ganancia lineal durante el plazo</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="financial-card" aria-labelledby="simple-table-heading">
+          <div class="financial-card__header">
+            <h2 class="financial-card__title" id="simple-table-heading">Desglose anual</h2>
+            <p class="financial-card__note">Evolución año por año del capital e intereses.</p>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col">Año</th>
+                  <th scope="col" class="num">Interés del año</th>
+                  <th scope="col" class="num">Interés acumulado</th>
+                  <th scope="col" class="num">Monto acumulado</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-simple-body">
+                <tr class="data-table__empty" id="tabla-simple-vacia">
+                  <td colspan="4">Aún no hay datos. Completa el formulario y pulsa Calcular.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- =========================================================
+           2. MÓDULO: INTERÉS COMPUESTO
+           ========================================================= -->
+      <div class="module" id="interes-compuesto">
+        <header class="page-header">
+          <h1 class="page-header__title">Interés compuesto</h1>
+          <p class="page-header__subtitle">Calcula el crecimiento exponencial cuando los intereses generados se reinvierten en cada periodo de capitalización.</p>
+        </header>
+
+        <section class="financial-card" aria-labelledby="compound-interest-heading">
+          <div class="financial-card__header">
+            <h2 class="financial-card__title" id="compound-interest-heading">Datos de la operación</h2>
+            <p class="formula">M = C × (1 + i/n)<sup>n×t</sup></p>
+          </div>
+
+          <p class="form-error" id="compuesto-error" role="alert" hidden></p>
+
+          <form class="financial-form" id="compound-interest-form" novalidate>
+            <div class="form-grid">
+              <div class="form-field">
+                <label class="form-field__label" for="compuesto-capital">Capital inicial (C)</label>
+                <div class="input-group">
+                  <span class="input-group__addon" aria-hidden="true">$</span>
+                  <input class="input-group__control" type="number" id="compuesto-capital" min="0" step="any" placeholder="10000" inputmode="decimal" required>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="compuesto-tasa">Tasa nominal anual (i)</label>
+                <div class="input-group">
+                  <input class="input-group__control" type="number" id="compuesto-tasa" min="0" step="any" placeholder="8" inputmode="decimal" required>
+                  <span class="input-group__addon" aria-hidden="true">%</span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="compuesto-tiempo">Tiempo en años (t)</label>
+                <div class="input-group">
+                  <input class="input-group__control" type="number" id="compuesto-tiempo" min="1" step="1" placeholder="5" inputmode="numeric" required>
+                  <span class="input-group__addon" aria-hidden="true">años</span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="compuesto-frecuencia">Capitalización (n)</label>
+                <div class="input-group">
+                  <select class="input-group__control input-group__control--select" id="compuesto-frecuencia">
+                    <option value="1">Anual (1 vez/año)</option>
+                    <option value="2">Semestral (2 veces/año)</option>
+                    <option value="4">Trimestral (4 veces/año)</option>
+                    <option value="12" selected>Mensual (12 veces/año)</option>
+                    <option value="365">Diaria (365 veces/año)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16.01" y2="15"/><line x1="8" y1="19" x2="12" y2="19"/></svg>
+                Calcular
+              </button>
+              <button class="btn btn--ghost" type="reset">Limpiar</button>
+            </div>
+          </form>
+
+          <div class="results" aria-live="polite">
+            <article class="result-card result-card--primary">
+              <h3 class="result-card__label">Monto compuesto (M)</h3>
+              <p class="result-card__value" id="compuesto-resultado-monto">$0.00</p>
+              <p class="result-card__hint">Capital final acumulado</p>
+            </article>
+
+            <article class="result-card result-card--accent">
+              <h3 class="result-card__label">Interés compuesto (I)</h3>
+              <p class="result-card__value" id="compuesto-resultado-interes">$0.00</p>
+              <p class="result-card__hint">Rendimiento total generado</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="financial-card" aria-labelledby="compound-table-heading">
+          <div class="financial-card__header">
+            <h2 class="financial-card__title" id="compound-table-heading">Desglose anual</h2>
+            <p class="financial-card__note">Crecimiento año por año considerando la frecuencia de capitalización.</p>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col">Año</th>
+                  <th scope="col" class="num">Interés del año</th>
+                  <th scope="col" class="num">Interés acumulado</th>
+                  <th scope="col" class="num">Monto acumulado</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-compuesto-body">
+                <tr class="data-table__empty" id="tabla-compuesto-vacia">
+                  <td colspan="4">Aún no hay datos. Completa el formulario y pulsa Calcular.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- =========================================================
+           3. MÓDULO: ANUALIDADES
+           ========================================================= -->
+      <div class="module" id="anualidades">
+        <header class="page-header">
+          <h1 class="page-header__title">Anualidades</h1>
+          <p class="page-header__subtitle">Calcula el Valor Presente, Valor Futuro o Renta periódica para series de pagos iguales vencidos o anticipados.</p>
+        </header>
+
+        <section class="financial-card" aria-labelledby="annuities-heading">
+          <div class="financial-card__header">
+            <h2 class="financial-card__title" id="annuities-heading">Parámetros de la anualidad</h2>
+            <p class="formula" id="anualidad-formula">VF = R × [((1 + i)<sup>n</sup> − 1) ÷ i]</p>
+          </div>
+
+          <p class="form-error" id="anualidad-error" role="alert" hidden></p>
+
+          <form class="financial-form" id="annuities-form" novalidate>
+            <div class="form-grid">
+              <div class="form-field">
+                <label class="form-field__label" for="anualidad-calculo">¿Qué deseas calcular?</label>
+                <div class="input-group">
+                  <select class="input-group__control input-group__control--select" id="anualidad-calculo">
+                    <option value="vf">Valor Futuro (VF) desde Renta</option>
+                    <option value="vp">Valor Presente (VP) desde Renta</option>
+                    <option value="renta-vp">Renta (R) desde Valor Presente</option>
+                    <option value="renta-vf">Renta (R) desde Valor Futuro</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="anualidad-tipo">Tipo de anualidad</label>
+                <div class="input-group">
+                  <select class="input-group__control input-group__control--select" id="anualidad-tipo">
+                    <option value="vencida">Vencida (al final del periodo)</option>
+                    <option value="anticipada">Anticipada (al inicio del periodo)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="anualidad-monto" id="anualidad-monto-label">Renta periódica (R)</label>
+                <div class="input-group">
+                  <span class="input-group__addon" aria-hidden="true">$</span>
+                  <input class="input-group__control" type="number" id="anualidad-monto" min="0" step="any" placeholder="1500" inputmode="decimal" required>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="anualidad-tasa">Tasa de interés anual</label>
+                <div class="input-group">
+                  <input class="input-group__control" type="number" id="anualidad-tasa" min="0" step="any" placeholder="12" inputmode="decimal" required>
+                  <span class="input-group__addon" aria-hidden="true">%</span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="anualidad-periodos">Número de periodos (meses)</label>
+                <div class="input-group">
+                  <input class="input-group__control" type="number" id="anualidad-periodos" min="1" step="1" placeholder="24" inputmode="numeric" required>
+                  <span class="input-group__addon" aria-hidden="true">meses</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16.01" y2="15"/><line x1="8" y1="19" x2="12" y2="19"/></svg>
+                Calcular
+              </button>
+              <button class="btn btn--ghost" type="reset">Limpiar</button>
+            </div>
+          </form>
+
+          <div class="results" aria-live="polite">
+            <article class="result-card result-card--primary">
+              <h3 class="result-card__label" id="anualidad-res-titulo">Valor Futuro (VF)</h3>
+              <p class="result-card__value" id="anualidad-resultado-principal">$0.00</p>
+              <p class="result-card__hint" id="anualidad-res-hint">Monto total acumulado al finalizar los periodos</p>
+            </article>
+
+            <article class="result-card result-card--accent">
+              <h3 class="result-card__label">Suma nominal de pagos</h3>
+              <p class="result-card__value" id="anualidad-resultado-secundario">$0.00</p>
+              <p class="result-card__hint">Total aportado sin considerar intereses</p>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <!-- =========================================================
+           4. MÓDULO: AMORTIZACIÓN
+           ========================================================= -->
+      <div class="module" id="amortizacion">
+        <header class="page-header">
+          <h1 class="page-header__title">Amortización de créditos</h1>
+          <p class="page-header__subtitle">Genera la tabla de pagos periódicos bajo el sistema francés (cuota fija mensual).</p>
+        </header>
+
+        <section class="financial-card" aria-labelledby="amortization-form-heading">
+          <div class="financial-card__header">
+            <h2 class="financial-card__title" id="amortization-form-heading">Datos del préstamo</h2>
+            <p class="formula">Cuota = P × [i(1 + i)<sup>n</sup>] ÷ [(1 + i)<sup>n</sup> − 1]</p>
+          </div>
+
+          <p class="form-error" id="amortizacion-error" role="alert" hidden></p>
+
+          <form class="financial-form" id="amortization-form" novalidate>
+            <div class="form-grid">
+              <div class="form-field">
+                <label class="form-field__label" for="amort-monto">Monto del préstamo</label>
+                <div class="input-group">
+                  <span class="input-group__addon" aria-hidden="true">$</span>
+                  <input class="input-group__control" type="number" id="amort-monto" min="0" step="any" placeholder="50000" inputmode="decimal" required>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="amort-tasa">Tasa de interés anual</label>
+                <div class="input-group">
+                  <input class="input-group__control" type="number" id="amort-tasa" min="0" step="any" placeholder="14" inputmode="decimal" required>
+                  <span class="input-group__addon" aria-hidden="true">%</span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="amort-plazo">Plazo en meses</label>
+                <div class="input-group">
+                  <input class="input-group__control" type="number" id="amort-plazo" min="1" step="1" placeholder="12" inputmode="numeric" required>
+                  <span class="input-group__addon" aria-hidden="true">meses</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16.01" y2="15"/><line x1="8" y1="19" x2="12" y2="19"/></svg>
+                Generar tabla
+              </button>
+              <button class="btn btn--ghost" type="reset">Limpiar</button>
+            </div>
+          </form>
+
+          <div class="results" aria-live="polite">
+            <article class="result-card result-card--primary">
+              <h3 class="result-card__label">Cuota mensual fija</h3>
+              <p class="result-card__value" id="amort-resultado-cuota">$0.00</p>
+              <p class="result-card__hint">Pago periódico constante</p>
+            </article>
+
+            <article class="result-card result-card--accent">
+              <h3 class="result-card__label">Total de intereses</h3>
+              <p class="result-card__value" id="amort-resultado-intereses">$0.00</p>
+              <p class="result-card__hint">Costo financiero total del crédito</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="financial-card" aria-labelledby="amortization-heading">
+          <div class="financial-card__header">
+            <h2 class="financial-card__title" id="amortization-heading">Tabla de amortización</h2>
+            <p class="financial-card__note">Desglose de capital e intereses por cada mensualidad.</p>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table" id="tabla-amortizacion">
+              <thead>
+                <tr>
+                  <th scope="col">Periodo</th>
+                  <th scope="col" class="num">Cuota</th>
+                  <th scope="col" class="num">Interés</th>
+                  <th scope="col" class="num">Amortización</th>
+                  <th scope="col" class="num">Saldo insoluto</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-amortizacion-body">
+                <tr class="data-table__empty" id="tabla-amortizacion-vacia">
+                  <td colspan="5">Aún no hay datos. Completa el formulario y pulsa Generar tabla.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="row">Totales</th>
+                  <td class="num" id="total-pagos">$0.00</td>
+                  <td class="num" id="total-intereses">$0.00</td>
+                  <td class="num" id="total-amortizado">$0.00</td>
+                  <td class="num">$0.00</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- =========================================================
+           5. MÓDULO: DEPRECIACIONES
+           ========================================================= -->
+      <div class="module" id="depreciaciones">
+        <header class="page-header">
+          <h1 class="page-header__title">Depreciaciones</h1>
+          <p class="page-header__subtitle">Calcula la pérdida de valor contable de un activo fijo a lo largo de su vida útil.</p>
+        </header>
+
+        <section class="financial-card" aria-labelledby="depreciation-form-heading">
+          <div class="financial-card__header">
+            <h2 class="financial-card__title" id="depreciation-form-heading">Datos del activo</h2>
+            <p class="formula" id="depreciation-formula">Depreciación anual = (Costo − Salvamento) ÷ Vida útil</p>
+          </div>
+
+          <p class="form-error" id="depreciacion-error" role="alert" hidden></p>
+
+          <form class="financial-form" id="depreciation-form" novalidate>
+            <div class="form-grid">
+              <div class="form-field">
+                <label class="form-field__label" for="depreciacion-costo">Costo del activo (C)</label>
+                <div class="input-group">
+                  <span class="input-group__addon" aria-hidden="true">$</span>
+                  <input class="input-group__control" type="number" id="depreciacion-costo" min="0" step="any" placeholder="120000" inputmode="decimal" required>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="depreciacion-salvamento">Valor de salvamento (S)</label>
+                <div class="input-group">
+                  <span class="input-group__addon" aria-hidden="true">$</span>
+                  <input class="input-group__control" type="number" id="depreciacion-salvamento" min="0" step="any" placeholder="20000" inputmode="decimal" required>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="depreciacion-vida">Vida útil (n)</label>
+                <div class="input-group">
+                  <input class="input-group__control" type="number" id="depreciacion-vida" min="1" step="1" placeholder="5" inputmode="numeric" required>
+                  <span class="input-group__addon" aria-hidden="true">años</span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field__label" for="depreciacion-metodo">Método de depreciación</label>
+                <div class="input-group">
+                  <select class="input-group__control input-group__control--select" id="depreciacion-metodo">
+                    <option value="linea-recta">Línea recta</option>
+                    <option value="suma-digitos">Suma de dígitos de los años</option>
+                    <option value="saldo-decreciente">Saldo decreciente (porcentaje fijo)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">
+                <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="8.01" y2="11"/><line x1="12" y1="11" x2="12.01" y2="11"/><line x1="16" y1="11" x2="16.01" y2="11"/><line x1="8" y1="15" x2="8.01" y2="15"/><line x1="12" y1="15" x2="12.01" y2="15"/><line x1="16" y1="15" x2="16.01" y2="15"/><line x1="8" y1="19" x2="12" y2="19"/></svg>
+                Calcular
+              </button>
+              <button class="btn btn--ghost" type="reset">Limpiar</button>
+            </div>
+          </form>
+
+          <div class="results" aria-live="polite">
+            <article class="result-card result-card--primary">
+              <h3 class="result-card__label">Depreciación (Año 1)</h3>
+              <p class="result-card__value" id="resultado-depreciacion-anual">$0.00</p>
+              <p class="result-card__hint">Cargo por depreciación del primer ejercicio</p>
+            </article>
+
+            <article class="result-card result-card--accent">
+              <h3 class="result-card__label">Base depreciable</h3>
+              <p class="result-card__value" id="resultado-depreciacion-base">$0.00</p>
+              <p class="result-card__hint">Costo original menos valor de salvamento</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="financial-card" aria-labelledby="depreciation-table-heading">
+          <div class="financial-card__header">
+            <h2 class="financial-card__title" id="depreciation-table-heading">Tabla de depreciación</h2>
+            <p class="financial-card__note">Evolución del valor en libros al cierre de cada año.</p>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col">Año</th>
+                  <th scope="col" class="num">Depreciación anual</th>
+                  <th scope="col" class="num">Depreciación acumulada</th>
+                  <th scope="col" class="num">Valor en libros</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-depreciacion-body">
+                <tr class="data-table__empty" id="tabla-depreciacion-vacia">
+                  <td colspan="4">Aún no hay datos. Completa el formulario y pulsa Calcular.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="row">Total depreciado</th>
+                  <td class="num" id="total-depreciacion">$0.00</td>
+                  <td class="num">—</td>
+                  <td class="num">—</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Scripts de lógica financiera -->
+  <script src="app.js" defer></script>
+  <script src="depreciacion.js" defer></script>
+</body>
+</html>
